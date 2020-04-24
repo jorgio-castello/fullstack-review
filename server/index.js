@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { getReposByUsername } = require('../helpers/github.js');
+const { formatGithubData } = require('../helpers/formatGithubData.js');
 
 let app = express();
 app.use(bodyParser.json());
@@ -17,25 +18,25 @@ app.post('/repos', function (req, res) {
     if (err || res.statusCode !== 200) { //handle error and non-200 status
       console.log(err);
     } else {
-      let data = JSON.parse(body);
+      let data = formatGithubData(JSON.parse(body));
 
-      //Create the data that we want:
-      let repos = data.map(repo => {
-        return {
-          username: repo.owner.login,    //username: owner.login
-          usernameUrl: repo.owner.url,   //usernameUrl: owner.url
-          repository: repo.name,         //repository: name
-          repositoryUrl: repo.html_url,  //repositoryUrl: html_url
-          stars: repo.stargazers_count,  //stars: stargazers_count
-          watches: repo.watchers_count,  //watches: watchers_count
-          forks: repo.forks_count        //forks: forks_count
-        }
+      // //Create the data that we want:
+      // let repos = data.map(repo => {
+      //   return {
+      //     username: repo.owner.login,    //username: owner.login
+      //     usernameUrl: repo.owner.url,   //usernameUrl: owner.url
+      //     repository: repo.name,         //repository: name
+      //     repositoryUrl: repo.html_url,  //repositoryUrl: html_url
+      //     stars: repo.stargazers_count,  //stars: stargazers_count
+      //     watches: repo.watchers_count,  //watches: watchers_count
+      //     forks: repo.forks_count        //forks: forks_count
+      //   }
 
-      });
+      // });
 
 
 
-      console.log(repos);
+      console.log(data);
     }
   });
 
