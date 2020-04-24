@@ -4,7 +4,7 @@ let RepoItem = ({ forks, watches, stars, repositoryUrl, repository, usernameUrl,
   return (
     <tr>
       <td>Repo #{count + 1}</td>
-      <td>
+      <td class="usernameAndRepo">
         <a href={usernameUrl} target="_blank">{username}</a>
         /
         <a href={repositoryUrl} target="_blank">{repository}</a>
