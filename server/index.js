@@ -45,7 +45,7 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  repoCount((err, count) => {
+  repoCount((err, numberOfRepos) => {
     if (err) {
       console.log(err);
     } else {
@@ -53,7 +53,7 @@ app.get('/repos', function (req, res) {
         if(err) {
           console.log(err);
         } else {
-          let data = { count, repos };
+          let data = { numberOfRepos, repos };
           res.status(200);
           res.json(data);
         }
