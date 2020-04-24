@@ -40,7 +40,7 @@ let findFullNames = callback => {
 
 let findTop25 = callback => {
   Repo.find({})
-    .sort({stars: -1, watches: -1, forks: -1})
+    .sort({forks: -1, watches: -1, stars: -1})
     .limit(25)
     .exec((err, repos) => {
       if(err) {
