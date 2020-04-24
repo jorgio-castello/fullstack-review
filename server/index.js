@@ -17,6 +17,14 @@ app.post('/repos', function (req, res) {
     if (err || res.statusCode !== 200) { //handle error and non-200 status
       throw err;
     } else {
+      //Data that we want:
+        //username: owner.login
+        //username_url: owner.url
+        //repository: name
+        //repository: html_url
+        //stars: stargazers_count
+        //watches: watchers_count
+        //forks: forks_count
       console.log(JSON.parse(body));
     }
   });
