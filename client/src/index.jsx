@@ -14,9 +14,14 @@ class App extends React.Component {
 
   }
 
+  //Send an Ajax "post request to the server located at "http://127.0.0.1:1128/repos
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    $.ajax({
+      type:"POST",
+      url:"http://127.0.0.1:1128/repos",
+      data: { term }
+    });
   }
 
   render () {
