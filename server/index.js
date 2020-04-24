@@ -10,14 +10,18 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
   // TODO - your code here!
-  let { term } = req.body;
-  let test = getReposByUsername(term);
-  console.log(test);
-
-
-
   // This route should take the github username provided
+  let { term } = req.body;
   // and get the repo information from the github API, then
+  getReposByUsername(term, (err, res, body) => {
+    if (err || res.statusCode !== 200) { //handle error and non-200 status
+      throw err;
+    } else {
+      console.log(JSON.parse(body));
+    }
+  });
+
+
   // save the repo information in the database
 });
 
