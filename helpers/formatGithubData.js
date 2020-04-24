@@ -3,7 +3,7 @@ let formatGithubData = repos => {
     return {
       fullname: repo.full_name,       //fullname: fullname
       username: repo.owner.login,    //username: owner.login
-      usernameUrl: repo.owner.url,   //usernameUrl: owner.url
+      usernameUrl: repo.owner.html_url,   //usernameUrl: owner.url
       repository: repo.name,         //repository: name
       repositoryUrl: repo.html_url,  //repositoryUrl: html_url
       stars: repo.stargazers_count,  //stars: stargazers_count
