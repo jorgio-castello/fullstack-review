@@ -6,17 +6,21 @@ let repoSchema = mongoose.Schema({
   usernameUrl: String,
   repository: String,
   repositoryUrl: String,
-  stars: Number.
+  stars: Number,
   watches: Number,
   forks: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
-}
+let save = (repos, callback) => {
+  Repo.create(repos, (err, success) => {
+    if(err) {
+      callback(err);
+    } else {
+      callback(null, success);
+    }
+  });
+};
 
 module.exports.save = save;
