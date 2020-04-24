@@ -7,7 +7,6 @@ const RepoList = (props) => (
     There are {props.numberOfRepos} repos total in the database.
     <br></br>
     <br></br>
-    Top 25:
     <table>
       { props.repos.map((repo, index) => (
         <RepoItem
