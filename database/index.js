@@ -24,8 +24,6 @@ let save = (repos, callback) => {
   });
 };
 
-// .sort({stars: -1, watches: -1, forks: -1})
-
 let findFullNames = callback => {
   Repo.find({})
     .exec((err, results) => {
@@ -38,5 +36,22 @@ let findFullNames = callback => {
       }
     });
 };
+
+
+let findTop25 = callback => {
+  Repo.find({})
+    .sort({stars: -1, watches: -1, forks: -1})
+    .limit(25)
+    .exec((err, repos) => {
+      if(err) {
+        callback(err);
+      } else {
+        let top25 = repos.map(repo => repo._doc);
+        callback(null, top25);
+      }
+    });
+};
+
 module.exports.save = save;
 module.exports.findFullNames = findFullNames;
+module.exports.findTop25;
