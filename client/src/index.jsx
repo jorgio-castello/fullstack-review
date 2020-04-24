@@ -11,7 +11,16 @@ class App extends React.Component {
       numberOfRepos: 0, //This piece of state represents how many total repos are in the database
       repos: [] //This will feature an array of objects, representative of the top 25 repos
     }
+  }
 
+  componentDidMount() {
+    $.ajax({
+      type: 'GET',
+      url:"http://127.0.0.1:1128/repos",
+      success: data => {
+        console.log(data);
+      }
+    });
   }
 
   //Send an Ajax "post request to the server located at "http://127.0.0.1:1128/repos
