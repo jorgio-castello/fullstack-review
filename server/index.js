@@ -15,17 +15,27 @@ app.post('/repos', function (req, res) {
   // and get the repo information from the github API, then
   getReposByUsername(term, (err, res, body) => {
     if (err || res.statusCode !== 200) { //handle error and non-200 status
-      throw err;
+      console.log(err);
     } else {
-      //Data that we want:
-        //username: owner.login
-        //username_url: owner.url
-        //repository: name
-        //repository: html_url
-        //stars: stargazers_count
-        //watches: watchers_count
-        //forks: forks_count
-      console.log(JSON.parse(body));
+      let data = JSON.parse(body);
+
+      //Create the data that we want:
+      let repos = data.map(repo => {
+        return {
+          username: repo.owner.login,    //username: owner.login
+          usernameUrl: repo.owner.url,   //usernameUrl: owner.url
+          repository: repo.name,         //repository: name
+          repositoryUrl: repo.html_url,  //repositoryUrl: html_url
+          stars: repo.stargazers_count,  //stars: stargazers_count
+          watches: repo.watchers_count,  //watches: watchers_count
+          forks: repo.forks_count        //forks: forks_count
+        }
+
+      });
+
+
+
+      console.log(repos);
     }
   });
 
