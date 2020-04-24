@@ -22,13 +22,15 @@ app.post('/repos', function (req, res) {
         if(err) {
           console.log(err);
         } else {
-          let data = formatGithubData(JSON.parse(body)).filter(repo => fullnames.indexOf(repo.fullname) === -1);
+          let data = formatGithubData(JSON.parse(body)) //Obtain data we want to include in the db from response
+                        .filter(repo => fullnames.indexOf(repo.fullname) === -1); //Filter repos already in db
+
           // save the repo information in the database
           save(data, (err, success) => {
             if (err) {
-              console.log(err);
+              console.log(err); //log the error if there are any issues
             } else {
-              res.status(201);
+              res.status(201); //send back statusCode of 201 if successful save
               res.end();
             }
           });
