@@ -1,6 +1,7 @@
 let formatGithubData = repos => {
   return repos.map(repo => {
     return {
+      fullname: repo.full_name,       //fullname: fullname
       username: repo.owner.login,    //username: owner.login
       usernameUrl: repo.owner.url,   //usernameUrl: owner.url
       repository: repo.name,         //repository: name
