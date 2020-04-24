@@ -18,7 +18,11 @@ class App extends React.Component {
       type: 'GET',
       url:"http://127.0.0.1:1128/repos",
       success: data => {
-        console.log(data);
+        let { numberOfRepos, repos } = data; //Object destructuring: obtain numberOfRepos, and repos from data
+        this.setState({ //Update state with the data we receive from the get request
+          numberOfRepos,
+          repos
+        });
       }
     });
   }
