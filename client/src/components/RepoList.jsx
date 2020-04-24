@@ -5,7 +5,7 @@ const RepoList = (props) => (
   <div>
     <h4> Repo List Component </h4>
     There are {props.numberOfRepos} repos.
-    <ul>
+    <table>
       { props.repos.map((repo, index) => (
         <RepoItem
           forks={repo.forks}
@@ -19,7 +19,7 @@ const RepoList = (props) => (
           count={index}
         />
       ))}
-    </ul>
+    </table>
   </div>
 )
 
