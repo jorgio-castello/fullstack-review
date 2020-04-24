@@ -1,12 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const { getReposByUsername } = require('../helpers/github.js');
 const { formatGithubData } = require('../helpers/formatGithubData.js');
-const { findFullNames, save, findTop25 } = require('../database/index.js');
+const { findFullNames, save, findTop25, repoCount } = require('../database/index.js');
 
 let app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
 
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -42,12 +45,19 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  findTop25((err, repos) => {
-    if(err) {
+  repoCount((err, count) => {
+    if (err) {
       console.log(err);
     } else {
-      res.status(200);
-      res.json(repos);
+      findTop25((err, repos) => {
+        if(err) {
+          console.log(err);
+        } else {
+          let data = { count, repos };
+          res.status(200);
+          res.json(data);
+        }
+      });
     }
   });
 });
