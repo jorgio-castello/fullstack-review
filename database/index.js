@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
-  // TODO: your schema here!
+  username: String,
+  usernameUrl: String,
+  repository: String,
+  repositoryUrl: String,
+  stars: Number.
+  watches: Number,
+  forks: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
