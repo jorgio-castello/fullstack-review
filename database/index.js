@@ -52,6 +52,17 @@ let findTop25 = callback => {
     });
 };
 
+let repoCount = callback => {
+  Repo.count({}, (err, count) => {
+    if(err) {
+      callback(err);
+    } else {
+      callback(null, count);
+    }
+  });
+}
+
 module.exports.save = save;
 module.exports.findFullNames = findFullNames;
-module.exports.findTop25;
+module.exports.findTop25 = findTop25;
+module.exports.repoCount = repoCount;
