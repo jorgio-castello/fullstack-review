@@ -7,6 +7,11 @@ table {
 
 td {
   width: 20em;
+  padding-left: 1rem;
+}
+
+tr:nth-child(odd) {
+  background-color: rgba(173, 216, 230, 0.226);
 }
 
 a:visited {
@@ -19,4 +24,12 @@ a {
 
 a:hover {
   color: blue;
+}
+
+.forksAndStars {
+  text-align: center;
+}
+
+tr {
+  height: 2em;
 }
