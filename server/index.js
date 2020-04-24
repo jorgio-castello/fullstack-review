@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { getReposByUsername } = require('../helpers/github.js');
 const { formatGithubData } = require('../helpers/formatGithubData.js');
+const { save } = require('../database/index.js');
 
 let app = express();
 app.use(bodyParser.json());
@@ -14,34 +15,22 @@ app.post('/repos', function (req, res) {
   // This route should take the github username provided
   let { term } = req.body;
   // and get the repo information from the github API, then
-  getReposByUsername(term, (err, res, body) => {
-    if (err || res.statusCode !== 200) { //handle error and non-200 status
+  getReposByUsername(term, (err, response, body) => {
+    if (err || response.statusCode !== 200) { //handle error and non-200 status
       console.log(err);
     } else {
       let data = formatGithubData(JSON.parse(body));
-
-      // //Create the data that we want:
-      // let repos = data.map(repo => {
-      //   return {
-      //     username: repo.owner.login,    //username: owner.login
-      //     usernameUrl: repo.owner.url,   //usernameUrl: owner.url
-      //     repository: repo.name,         //repository: name
-      //     repositoryUrl: repo.html_url,  //repositoryUrl: html_url
-      //     stars: repo.stargazers_count,  //stars: stargazers_count
-      //     watches: repo.watchers_count,  //watches: watchers_count
-      //     forks: repo.forks_count        //forks: forks_count
-      //   }
-
-      // });
-
-
-
-      console.log(data);
+      // save the repo information in the database
+      save(data, (err, success) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(201);
+          res.end();
+        }
+      });
     }
   });
-
-
-  // save the repo information in the database
 });
 
 app.get('/repos', function (req, res) {
