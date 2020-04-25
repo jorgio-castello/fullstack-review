@@ -23,7 +23,7 @@ class App extends React.Component {
     console.log(`${term} was searched`);
     $.ajax({
       type:"POST",
-      url:"http://127.0.0.1:1128/repos",
+      url:"/repos",
       data: { term }
     }).done(() => this.searchAjaxGetRequest());
   }
@@ -31,7 +31,7 @@ class App extends React.Component {
   searchAjaxGetRequest() {
     $.ajax({
       type: 'GET',
-      url:"http://127.0.0.1:1128/repos",
+      url:"/repos",
       success: data => {
         let { numberOfRepos, repos } = data; //Object destructuring: obtain numberOfRepos, and repos from data
         this.setState({ //Update state with the data we receive from the get request
